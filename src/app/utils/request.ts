@@ -6,11 +6,13 @@ const axiosRetry = require('axios-retry'); // https://github.com/softonic/axios-
 import { env, history } from 'app/config';
 import { externalUrls, publicUrls, urls } from 'app/routes';
 import { requestAccountToken } from 'app/services/user/userRequests';
+import { refreshTokenAxios } from './refreshToken';
 
+const refreshTokenInstance = refreshTokenAxios();
 // Retry on a network error or a 5xx error on an idempotent request https://github.com/softonic/axios-retry
 // You can disable retry by request adding {'axios-retry': { retries: 0 }} to axios config
 axiosRetry(axios, {
-  retries: 0,
+  retries: 3,
   retryCondition: (err: AxiosError) => err.config.method === 'get'
 });
 
@@ -19,19 +21,15 @@ axios.interceptors.response.use(
   (response) => {
     return response;
   },
-  async (error) => {
-    const { code } = error.response.data;
-    const { pathname, href } = location;
-    if (code === 'LOGIN_REQUIRED') {
-      try {
-        await requestAccountToken();
-      } catch (e) {
-        const returnUrl = encodeURIComponent(href);
-        location.replace(`${externalUrls.RIDIBOOKS_LOGIN}?return_url=${returnUrl}`);
-        return;
-      }
-      return request(error.config);
-    } else if (code === 'NOT_FOUND_USER') {
+  (error) => {
+    const { status, data, config } = error.response;
+    const { pathname } = location;
+    if (status === 401) {
+      // Token Refresh
+      return refreshTokenInstance
+        .post('/ridi/token/')
+        .then(() => request(config));
+    } else if (data.code === 'NOT_FOUND_USER') {
       if (!publicUrls.includes(pathname)) {
         history.replace(urls.SETTINGS);
       }

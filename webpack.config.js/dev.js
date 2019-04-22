@@ -23,6 +23,7 @@ module.exports = {
     new webpack.DefinePlugin({
       API_SEVER_URL: '"https://pay.local.ridi.io/api"',
       BOOKS_SERVER_URL: '"https://dev.ridi.io"',
+      ACCOUNT_SERVER_URL: '"https://account.dev.ridi.io"',
     }),
     new HtmlWebpackPlugin({
       template: 'template/index.hbs',
