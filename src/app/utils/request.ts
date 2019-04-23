@@ -4,15 +4,15 @@ import MockAdapter from 'axios-mock-adapter';
 const axiosRetry = require('axios-retry'); // https://github.com/softonic/axios-retry/issues/53
 
 import { env, history } from 'app/config';
-import { externalUrls, publicUrls, urls } from 'app/routes';
-import { requestAccountToken } from 'app/services/user/userRequests';
-import { refreshTokenAxios } from './refreshToken';
+import { publicUrls, urls } from 'app/routes';
+import { refreshToken } from './refreshToken';
 
-const refreshTokenInstance = refreshTokenAxios();
+const refreshTokenInstance = refreshToken();
 // Retry on a network error or a 5xx error on an idempotent request https://github.com/softonic/axios-retry
 // You can disable retry by request adding {'axios-retry': { retries: 0 }} to axios config
 axiosRetry(axios, {
   retries: 3,
+  retryDelay: () => 1000 + Math.floor(1000 * Math.random()),
   retryCondition: (err: AxiosError) => err.config.method === 'get'
 });
 
@@ -22,10 +22,10 @@ axios.interceptors.response.use(
     return response;
   },
   (error) => {
-    const { status, data, config } = error.response;
+    const { data, config } = error.response;
     const { pathname } = location;
-    if (status === 401) {
-      // Token Refresh
+    if (data.code === 'LOGIN_REQUIRED') {
+      // 401시 먼저 Token Refresh 후 Login Page로 Redirect /ridi/token 성공 시 원래의 request
       return refreshTokenInstance
         .post('/ridi/token/')
         .then(() => request(config));

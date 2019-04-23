@@ -1,9 +1,9 @@
 import { env } from 'app/config';
 import { externalUrls } from 'app/routes';
-import axios from 'axios';
+import axios, { AxiosError } from 'axios';
+import axiosRetry from 'axios-retry';
 
-
-export function refreshTokenAxios() {
+export function refreshToken() {
   const requestConfig = {
     ...axios.defaults,
     baseURL: `${env.accountServerUrl}`,
@@ -11,21 +11,29 @@ export function refreshTokenAxios() {
   }
   const instance = axios.create(requestConfig);
 
+  axiosRetry(instance, {
+    retries: 3,
+    retryDelay: () => 1000 + Math.floor(1000 * Math.random()),
+  });
+
   instance.interceptors.response.use(
     undefined,
     async (error) => {
       if (error.response) {
-        const { status } = error.response;
+        const { status, config } = error.response;
         const { href } = location;
         if (status === 401) {
           try {
-            await instance.get(`/ridi/authorize/`, {
-              params: {
-                client_id: process.env.OAUTH2_CLIENT_ID,
-                response_type: 'code',
-                redirect_uri: `https://${process.env.ACCOUNT_SERVER_HOST}/ridi/complete/`
-              }
-            });
+            await
+              instance.get(`/ridi/authorize/`, {
+                params: {
+                  client_id: process.env.OAUTH2_CLIENT_ID,
+                  response_type: 'code',
+                  redirect_uri: `https://${process.env.ACCOUNT_SERVER_HOST}/ridi/complete/`
+                }
+              })
+            // 인증 성공 시 기존에 하던 request 재시도
+            instance.request(config)
           } catch (e) {
             const returnUrl = encodeURIComponent(href);
             location.replace(`${externalUrls.RIDIBOOKS_LOGIN}?return_url=${returnUrl}`);
@@ -35,6 +43,7 @@ export function refreshTokenAxios() {
       return Promise.reject(error);
     },
   );
+
   return instance;
 }
 
