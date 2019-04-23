@@ -13,7 +13,6 @@ export function refreshToken() {
 
   axiosRetry(instance, {
     retries: 3,
-    retryDelay: () => 1000 + Math.floor(1000 * Math.random()),
   });
 
   instance.interceptors.response.use(

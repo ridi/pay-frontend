@@ -12,7 +12,7 @@ const refreshTokenInstance = refreshToken();
 // You can disable retry by request adding {'axios-retry': { retries: 0 }} to axios config
 axiosRetry(axios, {
   retries: 3,
-  retryDelay: () => 1000 + Math.floor(1000 * Math.random()),
+  retryDelay: () => Math.floor(1000 * Math.random()),
   retryCondition: (err: AxiosError) => err.config.method === 'get'
 });
 
