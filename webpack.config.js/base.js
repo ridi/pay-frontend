@@ -13,7 +13,7 @@ const {
 module.exports = {
   context: srcDir,
   entry: {
-    polyfill: ['core-js/shim'],
+    polyfill: ['@babel/polyfill', 'core-js/shim'],
     main: 'app/index.tsx',
   },
   output: {
