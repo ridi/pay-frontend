@@ -1,7 +1,6 @@
 import { env } from 'app/config';
 import { externalUrls } from 'app/routes';
-import axios, { AxiosError } from 'axios';
-import axiosRetry from 'axios-retry';
+import axios from 'axios';
 
 export function refreshToken() {
   const requestConfig = {
@@ -10,10 +9,6 @@ export function refreshToken() {
     withCredentials: true,
   }
   const instance = axios.create(requestConfig);
-
-  axiosRetry(instance, {
-    retries: 3,
-  });
 
   instance.interceptors.response.use(
     undefined,
