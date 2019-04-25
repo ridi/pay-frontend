@@ -10,6 +10,7 @@ const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin')
+const TerserPlugin = require('terser-webpack-plugin');
 
 module.exports = {
   mode: 'production',
@@ -20,20 +21,21 @@ module.exports = {
   },
   optimization: {
     minimizer: [
-      new UglifyJsPlugin({
+      new TerserPlugin({
         cache: true,
+        sourceMap: true,
         parallel: true,
-        uglifyOptions: {
-          cache: true,
-          parallel: true,
-          sourceMap: true,
+        terserOptions: {
+          warnings: false,
           safari10: true,
           compress: {
             warnings: false,
             drop_console: false,
           },
-          comments: false,
-        },
+          output: {
+            comments: false,
+          }
+        }
       }),
     ],
   },
