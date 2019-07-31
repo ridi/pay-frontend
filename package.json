@@ -64,7 +64,7 @@
     "webpack-merge": "^4.1.2"
   },
   "dependencies": {
-    "@babel/polyfill": "^7.4.3",
+    "@babel/polyfill": "^7.4.4",
     "@ridi/event-tracker": "^0.7.0",
     "@ridi/object-case-converter": "^2.0.0-alpha",
     "@ridi/rsg": "2.0.15",
