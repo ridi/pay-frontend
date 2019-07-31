@@ -75,7 +75,7 @@
     "axios-retry": "^3.1.1",
     "classnames": "^2.2.5",
     "cleave.js": "^1.4.4",
-    "core-js": "^2.5.7",
+    "core-js": "^3",
     "date-fns": "^1.29.0",
     "detect-it": "^3.0.5",
     "dotenv-safe": "^6.0.0",
