@@ -40,22 +40,23 @@ export class RegisterCard extends React.PureComponent<Props, State> {
       /* returnUrl XSS Reflect 이슈 처리 */
       try {
         const originUrl = decodeURIComponent(queryString.returnUrl);
+        console.log(originUrl);
         const url = new URL(originUrl);
         console.log(url);
         
         if(url.protocol !== 'https:' && url.protocol !== 'http:') {
           alert('잘못된 URL경로입니다.')
-          location.replace('/');
+          // location.replace('/');
           return
         }
         if(url.host.match(/(?:^|\.)(?:ridibooks\.com|ridi\.io)$/)) {
           this.props.updateUrlToReturn({ url: encodeURIComponent(queryString.returnUrl) });
         } else {
           alert('잘못된 URL경로입니다.')
-          location.replace('/');
+          // location.replace('/');
         }  
       } catch (e) {
-        location.replace('/');
+        // location.replace('/');
       }
     }
   }
