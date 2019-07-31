@@ -99,7 +99,7 @@
     "redux-saga": "^0.16.0",
     "reselect": "^3.0.1",
     "url-parse": "^1.4.7",
-    "url-polyfill": "^1.1.5",
+    "url-polyfill": "^1.1.7",
     "vex-dialog": "1.0.6",
     "vex-js": "3.0.0",
     "webfontloader": "^1.6.28"
