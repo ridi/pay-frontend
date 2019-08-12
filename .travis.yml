@@ -17,7 +17,7 @@ jobs:
       script: yarn build
       env:
         - RIDI_PAY_HOST=pay.ridi.io
-        - RIDI_PAY_API_SERVER_HOST=api.pay.ridi.io
+        - RIDI_PAY_API_SERVER_HOST=pay-api.dev.ridi.io
         - RIDIBOOKS_HOST=master.test.ridi.io
         - ACCOUNT_SERVER_HOST=account.dev.ridi.io
         - OAUTH2_CLIENT_ID=${DEV_OAUTH2_CLIENT_ID}
@@ -28,7 +28,7 @@ jobs:
       script: yarn build
       env:
         - RIDI_PAY_HOST=staging.pay.ridibooks.com
-        - RIDI_PAY_API_SERVER_HOST=api.staging.pay.ridibooks.com
+        - RIDI_PAY_API_SERVER_HOST=staging.pay-api.ridibooks.com
         - RIDIBOOKS_HOST=ridibooks.com
         - ACCOUNT_SERVER_HOST=account.ridibooks.com
         - OAUTH2_CLIENT_ID=${PROD_OAUTH2_CLIENT_ID}
@@ -39,7 +39,7 @@ jobs:
       script: yarn build
       env:
         - RIDI_PAY_HOST=pay.ridibooks.com
-        - RIDI_PAY_API_SERVER_HOST=api.pay.ridibooks.com
+        - RIDI_PAY_API_SERVER_HOST=pay-api.ridibooks.com
         - RIDIBOOKS_HOST=ridibooks.com
         - ACCOUNT_SERVER_HOST=account.ridibooks.com
         - OAUTH2_CLIENT_ID=${PROD_OAUTH2_CLIENT_ID}

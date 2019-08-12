@@ -21,7 +21,7 @@ module.exports = {
   devtool: 'eval-cheap-module-source-map',
   plugins: [
     new webpack.DefinePlugin({
-      API_SEVER_URL: '"https://pay.local.ridi.io/api"',
+      API_SEVER_URL: '"https://pay-api.dev.ridi.io"',
       BOOKS_SERVER_URL: '"https://dev.ridi.io"',
     }),
     new HtmlWebpackPlugin({

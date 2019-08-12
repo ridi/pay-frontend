@@ -39,7 +39,7 @@ module.exports = {
   },
   plugins: [
     new webpack.DefinePlugin({
-      API_SEVER_URL: '"https://pay.ridi.com"',
+      API_SEVER_URL: '"https://pay-api.ridibooks.com"',
       BOOKS_SERVER_URL: '"https://ridibooks.com"',
     }),
     new HtmlWebpackPlugin({
