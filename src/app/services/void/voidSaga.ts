@@ -32,7 +32,7 @@ function* watchFinishPaymentRegistration(
       else if (queryString && queryString.indexOf('manage-subscription') >= 0) {
         alert(alertMessageText.CHANGE_PAYMENT);
       } else {
-        alert(alertMessageText.NEW_CARD_REGISTRATION);
+        alert(alertMessageText.CARD_REGISTRATION);
       }
     } else {
       if (queryString && queryString.indexOf('manage-subscription') >= 0) {
