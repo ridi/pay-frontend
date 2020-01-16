@@ -309,10 +309,10 @@ export class CardForm extends React.Component<Props, State> {
             </div>
           </div>
           <div className={cardInputBox60}>
-            <label htmlFor={cardNumberInputKey.birthdate} className={cardInputBoxLabel}>생년월일</label>
+            <label htmlFor={cardNumberInputKey.birthdate} className={cardInputBoxLabel}>생년월일 / 사업자번호</label>
             {this.renderCardInput({
               currentInputKey: cardNumberInputKey.birthdate,
-              placeholder: '6자리 입력 (예: 840331)',
+              placeholder: '생년월일 6자리 / 사업자번호 10자리',
             })}
             <div className={cardInputBoxBorderInteractive} />
           </div>

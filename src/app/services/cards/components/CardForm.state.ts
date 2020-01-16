@@ -53,7 +53,7 @@ const cardInputLength: {
   ccmonth: 2,
   ccyear: 2,
   password: 2,
-  birthdate: 6
+  birthdate: 10
 };
 
 export const numberInputRegexes: Record<string, RegExp> = Object.keys(cardNumberInputKey)
@@ -61,7 +61,8 @@ export const numberInputRegexes: Record<string, RegExp> = Object.keys(cardNumber
   .reduce((acc, key) => {
     return {
       ...acc,
-      [key]: new RegExp(`[0-9]{${cardInputLength[key]}}`)
+      // 생년월일의 경우 사업자번호가 포함되면서 6자리부터 10자리까지 허용가능하도록 수정
+      [key]: new RegExp(`[0-9]{${key !== cardNumberInputKey.birthdate ? cardInputLength[key] : 6}}`)
     };
   }, {});
 
