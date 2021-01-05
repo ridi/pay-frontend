@@ -71,7 +71,7 @@
     "@sentry/browser": "4.2.1",
     "@types/url-parse": "^1.4.3",
     "@types/webfontloader": "^1.6.29",
-    "axios": "0.19.0",
+    "axios": "0.21.1",
     "axios-retry": "^3.1.1",
     "classnames": "^2.2.5",
     "cleave.js": "^1.4.4",
